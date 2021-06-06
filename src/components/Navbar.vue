@@ -67,7 +67,15 @@ import { getAccessToken, logout } from "@/utils/auth";
 
 import { reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
-import { ElMessage } from "element-plus";
+import {
+  ElMessage,
+  ElAvatar,
+  ElDialog,
+  ElDropdown,
+  ElDropdownItem,
+  ElDropdownMenu,
+  ElHeader,
+} from "element-plus";
 
 export default {
   setup() {
@@ -136,6 +144,14 @@ export default {
   },
   props: {
     isSidenavCollapse: Boolean,
+  },
+  components: {
+    ElAvatar,
+    ElDialog,
+    ElDropdownMenu,
+    ElDropdown,
+    ElDropdownItem,
+    ElHeader,
   },
 };
 </script>

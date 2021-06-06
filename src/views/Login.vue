@@ -44,6 +44,7 @@ import { isLoggedIn, login } from "@/utils/auth";
 
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
+import { ElAlert } from "element-plus";
 
 export default {
   name: "Login",
@@ -74,6 +75,9 @@ export default {
       submitForm,
       wrong,
     };
+  },
+  components: {
+    ElAlert,
   },
 };
 </script>

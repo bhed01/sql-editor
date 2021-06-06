@@ -1,27 +1,31 @@
 {
-  "name": "sql-editor",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
-  },
-  "dependencies": {
-    "core-js": "^3.6.5",
-    "element-plus": "^1.0.2-beta.28",
-    "highlight.js": "^11.0.1",
-    "vue": "^3.0.0",
-    "vue-prism-editor": "^2.0.0-alpha.2",
-    "vue-router": "^4.0.0-0"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-router": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
-    "babel-plugin-component": "^1.1.1",
-    "sass": "^1.26.5",
-    "sass-loader": "^8.0.2",
-    "vue-cli-plugin-element-plus": "~0.0.13"
-  }
+	"name": "sql-editor",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"serve": "vue-cli-service serve",
+		"build": "vue-cli-service build"
+	},
+	"author": "Bhed Kumar Kushwaha <kushwaha.ved@gmail.com>",
+	"license": "MIT",
+	"dependencies": {
+		"axios": "^0.21.1",
+		"core-js": "^3.14.0",
+		"element-plus": "^1.0.2-beta.46",
+		"highlight.js": "^11.0.1",
+		"vue": "^3.0.0",
+		"vue-prism-editor": "^2.0.0-alpha.2",
+		"vue-router": "^4.0.0-0"
+	},
+	"devDependencies": {
+		"@vue/cli-plugin-babel": "~4.5.0",
+		"@vue/cli-plugin-router": "~4.5.0",
+		"@vue/cli-service": "~4.5.0",
+		"@vue/compiler-sfc": "^3.0.0",
+		"babel-plugin-component": "^1.1.1",
+		"sass": "^1.34.1",
+		"sass-loader": "^8.0.2",
+		"vue-cli-plugin-element-plus": "~0.0.13",
+		"webpack-bundle-analyzer": "^4.4.2"
+	}
 }

@@ -27,7 +27,7 @@ import SideNav from "@/components/SideNav.vue";
 
 import fakexios from "@/fakexios";
 import { getAccessToken } from "@/utils/auth";
-import { getCurrentTab } from "@/utils";
+import { getTab } from "@/utils";
 
 import { reactive, toRefs, computed, watchEffect } from "vue";
 import { ElMessage } from "element-plus";
@@ -58,7 +58,9 @@ export default {
         state.currentTabID = tabData.id;
       } else {
         tabData.then((res) => {
-          state.tabs.push(res);
+          if (!getTab(state.tabs, res.id)) {
+            state.tabs.push(res);
+          }
           state.currentTabID = res.id;
         });
       }
@@ -91,11 +93,11 @@ export default {
       return (
         !state.currentTabID ||
         state.currentTabID[0] === "T" ||
-        !getCurrentTab(state.tabs, state.currentTabID).modified
+        !getTab(state.tabs, state.currentTabID).modified
       );
     });
     const onSave = () => {
-      getCurrentTab(state.tabs, state.currentTabID).modified = false;
+      getTab(state.tabs, state.currentTabID).modified = false;
     };
 
     //to controll run button
@@ -105,7 +107,7 @@ export default {
     const onRun = () => {
       if (!disableRun._value) {
         const params = {
-          code: getCurrentTab(state.tabs, state.currentTabID).content,
+          code: getTab(state.tabs, state.currentTabID).content,
           headers: {
             Authorization: `Bearer ${getAccessToken()}`,
           },

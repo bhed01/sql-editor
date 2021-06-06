@@ -1,0 +1,81 @@
+[
+	{
+		"id": "1",
+		"name": "EmployeeDB",
+		"data": {
+			"tables": [
+				{
+					"id": "11",
+					"name": "employee_territories"
+				},
+				{
+					"id": "12",
+					"name": "employees"
+				},
+				{
+					"id": "13",
+					"name": "regions"
+				},
+				{
+					"id": "14",
+					"name": "territories"
+				}
+			],
+			"queries": [
+				{
+					"id": "11",
+					"name": "Query 1",
+					"data": "select * from regions;"
+				},
+				{
+					"id": "12",
+					"name": "Query 2",
+					"data": "select firstname, lastname from employees;"
+				}
+			]
+		}
+	},
+	{
+		"id": "2",
+		"name": "ShoppingDB",
+		"data": {
+			"tables": [
+				{
+					"id": "21",
+					"name": "categories"
+				},
+				{
+					"id": "22",
+					"name": "customers"
+				},
+				{
+					"id": "23",
+					"name": "order_details"
+				},
+				{
+					"id": "24",
+					"name": "orders"
+				},
+				{
+					"id": "25",
+					"name": "products"
+				},
+				{
+					"id": "26",
+					"name": "shippers"
+				},
+				{
+					"id": "27",
+					"name": "suppliers"
+				}
+			],
+			"queries": [
+				{
+					"id": "21",
+					"name": "Query 1",
+					"data": "select count(*) as total from orders;"
+				}
+			]
+		}
+	}
+]

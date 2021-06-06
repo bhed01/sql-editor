@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { ElMessage } from "element-plus";
+import { ElMessage, ElTable, ElTableColumn } from "element-plus";
 import { onUpdated } from "vue";
 
 export default {
@@ -37,6 +37,10 @@ export default {
     data: Object,
     msg: String,
     success: Boolean,
+  },
+  components: {
+    ElTableColumn,
+    ElTable,
   },
 };
 </script>

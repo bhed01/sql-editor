@@ -1,19 +1,13 @@
-import employee_territories from '@/assets/db/EmployeeDB/employee_territories.json';
-import employees from '@/assets/db/EmployeeDB/employees.json';
-import regions from '@/assets/db/EmployeeDB/regions.json';
-import territories from '@/assets/db/EmployeeDB/territories.json';
-
-import categories from '@/assets/db/ShoppingDB/categories.json';
-import customers from '@/assets/db/ShoppingDB/customers.json';
-import order_details from '@/assets/db/ShoppingDB/order_details.json';
-import orders from '@/assets/db/ShoppingDB/orders.json';
-import products from '@/assets/db/ShoppingDB/products.json';
-import shippers from '@/assets/db/ShoppingDB/shippers.json';
-import suppliers from '@/assets/db/ShoppingDB/suppliers.json';
+import axios from 'axios';
+import dbs from '@/assets/dbs.json';
 
 const QUERY1 = 'select * from regions;';
 const QUERY2 = 'select firstname, lastname from employees;';
 const QUERY3 = 'select count(*) as total from orders;';
+
+const getURL = (db, table) => {
+	return `https://raw.githubusercontent.com/bhed01/sql-editor/main/db/${db}/${table}.json`;
+};
 
 const isAuthorizedReq = (params) => {
 	return (
@@ -24,100 +18,7 @@ const isAuthorizedReq = (params) => {
 	);
 };
 
-const dbs = [
-	{
-		id: '1',
-		name: 'EmployeeDB',
-		data: {
-			tables: [
-				{
-					id: '11',
-					name: 'employee_territories',
-					data: employee_territories
-				},
-				{
-					id: '12',
-					name: 'employees',
-					data: employees
-				},
-				{
-					id: '13',
-					name: 'regions',
-					data: regions
-				},
-				{
-					id: '14',
-					name: 'territories',
-					data: territories
-				}
-			],
-			queries: [
-				{
-					id: '11',
-					name: 'Query 1',
-					data: QUERY1
-				},
-				{
-					id: '12',
-					name: 'Query 2',
-					data: QUERY2
-				}
-			]
-		}
-	},
-	{
-		id: '2',
-		name: 'ShoppingDB',
-		data: {
-			tables: [
-				{
-					id: '21',
-					name: 'categories',
-					data: categories
-				},
-				{
-					id: '22',
-					name: 'customers',
-					data: customers
-				},
-				{
-					id: '23',
-					name: 'order_details',
-					data: order_details
-				},
-				{
-					id: '24',
-					name: 'orders',
-					data: orders
-				},
-				{
-					id: '25',
-					name: 'products',
-					data: products
-				},
-				{
-					id: '26',
-					name: 'shippers',
-					data: shippers
-				},
-				{
-					id: '27',
-					name: 'suppliers',
-					data: suppliers
-				}
-			],
-			queries: [
-				{
-					id: '21',
-					name: 'Query 1',
-					data: QUERY3
-				}
-			]
-		}
-	}
-];
-
-const getData = (path) => {
+async function getData(path) {
 	path = path.split('/');
 	switch (path[1]) {
 		case 'database':
@@ -138,10 +39,9 @@ const getData = (path) => {
 							}
 						};
 					else {
-						db = db.data;
 						switch (path[3]) {
 							case 'query':
-								const query = db.queries.find((query) => query.id === path[4]);
+								const query = db.data.queries.find((query) => query.id === path[4]);
 								if (!!query) {
 									return {
 										status: 'success',
@@ -150,11 +50,15 @@ const getData = (path) => {
 								}
 								break;
 							case 'table':
-								const table = db.tables.find((table) => table.id === path[4]);
+								const table = db.data.tables.find((table) => table.id === path[4]);
 								if (!!table) {
+									const res = await axios.get(getURL(db.name, table.name));
 									return {
 										status: 'success',
-										data: table
+										data: {
+											...table,
+											data: res.data
+										}
 									};
 								}
 						}
@@ -167,9 +71,9 @@ const getData = (path) => {
 				msg: 'path does not exist'
 			};
 	}
-};
+}
 
-const postData = (path, data) => {
+async function postData(path, data) {
 	path = path.split('/');
 	switch (path[1]) {
 		case 'database':
@@ -188,23 +92,29 @@ const postData = (path, data) => {
 				};
 			} else if (path[3] === 'query') {
 				const response = { status: 'success' };
+				let res = null;
 				switch (data.code.toLowerCase()) {
 					case QUERY1:
+						res = await axios.get(getURL('EmployeeDB', 'regions'));
 						response.data = {
 							success: true,
-							result: regions
+							result: res.data
 						};
 						break;
 					case QUERY2:
+						res = await axios.get(getURL('EmployeeDB', 'employees'));
 						response.data = {
 							success: true,
-							result: employees.map(({ firstName, lastName }) => ({ firstName, lastName }))
+							result: res.data.map(({ firstName, lastName }) => ({
+								firstName,
+								lastName
+							}))
 						};
 						break;
 					case QUERY3:
 						response.data = {
 							success: true,
-							result: [ { total: orders.length } ]
+							result: [ { total: 860 } ]
 						};
 						break;
 					default:
@@ -221,7 +131,7 @@ const postData = (path, data) => {
 				msg: 'Invalid request!'
 			};
 	}
-};
+}
 
 const fakexios = {
 	get(path, params) {

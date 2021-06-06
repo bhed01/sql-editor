@@ -9,8 +9,7 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar.vue";
-import { ref } from "vue";
+import { ref, defineAsyncComponent } from "vue";
 import { useRouter } from "vue-router";
 import { isLoggedIn } from "@/utils/auth";
 
@@ -34,6 +33,8 @@ export default {
       toggleSideNav,
     };
   },
-  components: { Navbar },
+  components: {
+    Navbar: defineAsyncComponent(() => import("@/components/Navbar.vue")),
+  },
 };
 </script>

@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { ElTable, ElTableColumn, ElTabs, ElTabPane } from "element-plus";
 import { PrismEditor } from "vue-prism-editor";
 import hljs from "highlight.js/lib/core";
 import sql from "highlight.js/lib/languages/sql";
@@ -55,6 +56,10 @@ export default {
   },
   components: {
     PrismEditor,
+    ElTableColumn,
+    ElTable,
+    ElTabs,
+    ElTabPane,
   },
 };
 </script>
