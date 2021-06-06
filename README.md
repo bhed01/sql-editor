@@ -1,8 +1,11 @@
 # SQL Editor
 A SQL editor view where users can query easily on a table using SQL, and see the results.
+> For a demo click [here](https://sql-editor-01.netlify.app/)
+
+![video](./media/video.gif)
 
 ## Performance
-![performance](./pictures/performance.png)
+![performance](./media/performance.png)
 
 ### Steps performed to improve performance
 1. Used webpack bundle analyzer to anlyze the build.
@@ -16,7 +19,7 @@ A SQL editor view where users can query easily on a table using SQL, and see the
 ```
 .
 ├── db ⇒ act as database for project
-├── pictures
+├── media
 ├── public
 │   ├── _redirects ⇒ redirect config for netlify
 │   └── index.html
